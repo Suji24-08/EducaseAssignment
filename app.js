@@ -22,6 +22,15 @@ app.get("/",(req,res)=>{
     res.send("Server is up and running!");
 });
 // Add School API
+app.get('/testDb', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT 1 + 1 AS result');
+    res.json({ dbResult: rows[0].result });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.post(
     '/addSchool',
     [
@@ -104,5 +113,6 @@ app.listen(PORT,"0.0.0.0", () => {
     console.log(`Server running on port ${PORT}`);
 
 });
+
 
 
